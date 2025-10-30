@@ -1,14 +1,30 @@
-## Function
+### Function: Percentage above mean
 
-    #' @details
     #' Percentage above mean
     #' This function calculates the percentage of a vector's values that
     #' are above that vector's own mean.
+    #' 
+    #'@details
+    #' The mean itself can be modified by passing arguments (like `trim`)
+    #' via the `...` argument. The function first calculates the `total_mean`
+    #' (which could be a trimmed mean) and then finds the percentage of
+    #' all original values above that mean.
+    #' 
+    #'@param x A numeric vector.
+    #'@param na.rm Remove NAs if applicable. 
+    #'@param ... Additional arguments passed on to the `base::mean()` function.
+    #'   An example is that it could be used to pass a `trim` value.
     #'
-    #' @param x A numeric vector.
-    #' @param na.rm Remove NAs if applicable. 
+    #'@return A single numeric value (the percentage).
+    #'@export
     #'
-    #' @return A single numeric value as a percentage.
+    #'@examples
+    #' my_vector <- c(1, 2, 3, 10, 100)
+    #'
+    #' # 1/5 values are above -> 20%
+    #' perc_above_mean(my_vector)
+    #' 
+    #'
 
     perc_above_mean <- function(x, na.rm = TRUE,...) { 
       # Added the ellipse to allow the function to pass unnamed functions.
@@ -39,9 +55,9 @@
       return(percent_above)
     }
 
-## Examples
+### Examples
 
-# Example 1
+## Example 1
 
     # Example 1: We are working with vector x. We ensure that the vector is assigned to x and then apply the function. 
     x <- c(1:20,35:120,99)
@@ -49,7 +65,7 @@
 
     ## [1] 52.33645
 
-# Example 2
+## Example 2
 
     # Example 2: We are working with the dataset penguins from palmerpenguins. 
     # We would like to look at the distribution of larger penguins across the islands.
@@ -96,7 +112,7 @@
     ## 2 Dream                     45.2              45.2
     ## 3 Torgersen                 43.1              43.1
 
-# Example 3
+## Example 3
 
     # Example 3: We showcase an example that does not work. 
 
@@ -121,7 +137,7 @@
 
     ## Error: object 'species_stats' not found
 
-## Testing the function using testthat
+### Testing the function using testthat
 
     library(testthat)
 
