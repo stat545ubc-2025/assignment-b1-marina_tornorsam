@@ -21,15 +21,10 @@ This R markdown file contains the code for assignment B1.
 
 This markdown file contains the code for assignment B1. 
 
-## output 📊
-
-This folder contains the output files for Milestone 2. This folder contains three files including .csv, .rds., and README.md. 
-
 ## .gitignore
 
-This file (to the best of our knowledge) could be used to customize
-which files are pushed / pulled in GitHub. This file exists, but was not
-used.
+This file could be used to customize which files are pushed / pulled in GitHub.
+This file exists, but was not used.
 
 ## assignment-b1-marina_tvan-cloud.Rproj
 
