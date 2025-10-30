@@ -1,0 +1,71 @@
+---
+title: "Function B1"
+author: "Marina"
+date: "2025-10-30"
+output: md_document
+---
+
+## Function
+
+
+```{r}
+#' @details
+#' Calculate what percentage of a vector's values
+#' are above that vector's own mean.
+#'
+#' @param x A numeric vector.
+#' @param na.rm Remove NAs if applicable. 
+#'
+#' @return A single numeric value as a percentage.
+
+perc_above_mean <- function(x, na.rm = TRUE) {
+  
+  # Check that the input vector is numeric. 
+  stopifnot("Input vector must be numeric" = is.numeric(x))
+  
+  # Remove NAs if requested
+  if (na.rm) {
+    x <- x[!is.na(x)]
+  }
+  
+  # Make sure the vector count is above zero.
+  total_count <- length(x)
+  if (total_count == 0) {
+    return(0)
+  }
+  
+  # Calcualte the vector's mean. 
+  total_mean <- mean(x) 
+  
+  # Count how many values are above the mean
+  count_above <- sum(x > total_mean)
+  
+  # Calculate and return the percentage
+  percent_above <- (count_above / total_count) * 100
+  
+  return(percent_above)
+}
+
+```
+
+## Example
+
+```{r}
+
+
+```
+
+## Testing the function and examples 
+
+```{r}
+
+test_that("Perc_above_mean works!", {
+  expect_equal(perc_above_mean(c(1,2,3,4)), 50)
+  expect_equal(round(perc_above_mean(c(1:97)),1), 49.5)
+  expect_equal(perc_above_mean(c(33,4,22,100)), 25)
+})
+
+
+```
+
+
