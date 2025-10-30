@@ -10,7 +10,8 @@ output: md_document
 
 ```{r}
 #' @details
-#' Calculate what percentage of a vector's values
+#' Percentage above mean
+#' This function calculates the percentage of a vector's values that
 #' are above that vector's own mean.
 #'
 #' @param x A numeric vector.
@@ -18,10 +19,11 @@ output: md_document
 #'
 #' @return A single numeric value as a percentage.
 
-perc_above_mean <- function(x, na.rm = TRUE) {
+perc_above_mean <- function(x, na.rm = TRUE,...) { 
+  # Added the ellipse to allow the function to pass unnamed functions.
   
   # Check that the input vector is numeric. 
-  stopifnot("Input vector must be numeric" = is.numeric(x))
+  stopifnot("Input vector must be numeric!" = is.numeric(x))
   
   # Remove NAs if requested
   if (na.rm) {
@@ -34,8 +36,8 @@ perc_above_mean <- function(x, na.rm = TRUE) {
     return(0)
   }
   
-  # Calcualte the vector's mean. 
-  total_mean <- mean(x) 
+  # Calculate the vector's mean. The ellipse is added here to allow for the mean function to pass any unnamed functions. 
+  total_mean <- mean(x,...) 
   
   # Count how many values are above the mean
   count_above <- sum(x > total_mean)
@@ -48,23 +50,67 @@ perc_above_mean <- function(x, na.rm = TRUE) {
 
 ```
 
-## Example
+## Examples
+# Example 1
 
 ```{r}
-
+# Example 1: We are working with vector x. We ensure that the vector is assigned to x and then apply the function. 
+x <- c(1:20,35:120,99)
+perc_above_mean(x)
 
 ```
 
-## Testing the function and examples 
+# Example 2
+```{r}
+# Example 2: We are working with the dataset penguins from palmerpenguins. 
+# We would like to look at the distribution of larger penguins across the islands.
+
+library(tidyverse)
+library(palmerpenguins)
+data(penguins)
+# Call the libraries for tidyverse, palmerpenguins, penguins if it it not already loaded
+
+island_stats <- penguins %>% # Use piping to apply the dataset and group by island
+  group_by(island) %>%
+  summarize(
+    perc_above_m_flipper = round(perc_above_mean(flipper_length_mm),1),
+    perc_above_m_mass = round(perc_above_mean(body_mass_g),1)
+  ) # Round the percentage to the first decimal and assign to the summarised variable.
+# In this case, I choose to only look at two variables, flipper length and body mass. 
+
+head(island_stats)
+
+```
+# Example 3
+```{r, error = TRUE}
+# Example 3: We showcase an example that does not work. 
+
+species_stats <- penguins %>% # Use piping to apply the dataset and group by island
+  group_by(species) %>%
+  summarize(
+    perc_above_m_islands = round(perc_above_mean(island),1),
+    perc_above_m_mass = round(perc_above_mean(body_mass_g),1)
+  ) # Round the percentage to the first decimal and assign to the summarised variable.
+# In this case, I choose to only look at two variables, island and body mass. 
+# However, island is a categorical variable and you cannot calculate the mean. 
+# Thus the error ouput is given.
+head(species_stats)
+
+```
+
+## Testing the function using testthat 
 
 ```{r}
+library(testthat)
 
 test_that("Perc_above_mean works!", {
-  expect_equal(perc_above_mean(c(1,2,3,4)), 50)
+  expect_equal(perc_above_mean(c(1,2,3,0)), 50)
   expect_equal(round(perc_above_mean(c(1:97)),1), 49.5)
   expect_equal(perc_above_mean(c(33,4,22,100)), 25)
+  expect_equal(perc_above_mean(c(-1,3,50,89,-44)),40)
+  expect_equal(perc_above_mean(c(NA,47,30,88,22)),50)
+  expect_equal(perc_above_mean(c(0,0)),0)
 })
-
 
 ```
 
