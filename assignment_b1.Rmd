@@ -9,7 +9,7 @@ output: md_document
 
 
 ```{r}
-#' Percentage above mean
+#' @title Calculate the percentage above mean
 #' This function calculates the percentage of a vector's values that
 #' are above that vector's own mean.
 #' 
@@ -27,12 +27,10 @@ output: md_document
 #'@return A single numeric value (the percentage).
 #'@export
 #'
-#'@examples
+#'@example
 #' my_vector <- c(1, 2, 3, 10, 100)
-#'
-#' # 1/5 values are above -> 20%
 #' perc_above_mean(my_vector)
-#' 
+#' 1/5 values are above -> 20%
 #'
 
 perc_above_mean <- function(x, na.rm = TRUE,...) { 

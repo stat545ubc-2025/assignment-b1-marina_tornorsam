@@ -1,6 +1,6 @@
 ### Function: Percentage above mean
 
-    #' Percentage above mean
+    #' @title Calculate the percentage above mean
     #' This function calculates the percentage of a vector's values that
     #' are above that vector's own mean.
     #' 
@@ -18,12 +18,10 @@
     #'@return A single numeric value (the percentage).
     #'@export
     #'
-    #'@examples
+    #'@example
     #' my_vector <- c(1, 2, 3, 10, 100)
-    #'
-    #' # 1/5 values are above -> 20%
     #' perc_above_mean(my_vector)
-    #' 
+    #' 1/5 values are above -> 20%
     #'
 
     perc_above_mean <- function(x, na.rm = TRUE,...) { 
@@ -169,4 +167,4 @@
       expect_equal(perc_above_mean(c(0,0)),0)
     })
 
-    ## Test passed 🥇
+    ## Test passed 😀
