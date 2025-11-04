@@ -17,7 +17,7 @@ Instructions for the assignment are available for download on the canvas course 
 
 This R markdown file contains the code for assignment B1. 
 
-## assignment-b1.md ❇️
+## assignment_b1.md ❇️
 
 This markdown file contains the code for assignment B1. 
 
